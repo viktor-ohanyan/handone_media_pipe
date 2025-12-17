@@ -7,7 +7,6 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockHandoneArPlatform
     with MockPlatformInterfaceMixin
     implements HandoneArPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 }
