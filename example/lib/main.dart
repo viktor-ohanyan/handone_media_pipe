@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:handone_ar/handone_ar.dart';
+import 'package:handone_ar/handone_ar_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,9 +52,26 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Plugin example app')),
-        body: Center(child: Text('Running on: $_platformVersion\n')),
+      home: Stack(
+        children: [
+          HandoneArWidget(),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: const Text(
+                'Plugin example app',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.transparent,
+            ),
+            body: Center(
+              child: Text(
+                'Running on: $_platformVersion\n',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
