@@ -54,7 +54,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Stack(
         children: [
-          HandoneMediaPipeWidget(),
+          HandoneMediaPipeWidget(
+            dataReceived: (Map<String, dynamic> data) {},
+            debug: true,
+            exerciseType: ExerciseType.openingAndClosingTheFist,
+          ),
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
