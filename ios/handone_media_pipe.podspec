@@ -1,9 +1,9 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint handone_ar.podspec` to validate before publishing.
+# Run `pod lib lint handone_media_pipe.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'handone_ar'
+  s.name             = 'handone_media_pipe'
   s.version          = '0.0.1'
   s.summary          = 'HandOne AR'
   s.description      = <<-DESC
@@ -25,5 +25,5 @@ HandOne AR
   # required reason APIs, update the PrivacyInfo.xcprivacy file to describe your
   # plugin's privacy impact, and then uncomment this line. For more information,
   # see https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
-  # s.resource_bundles = {'handone_ar_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  # s.resource_bundles = {'handone_media_pipe_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end

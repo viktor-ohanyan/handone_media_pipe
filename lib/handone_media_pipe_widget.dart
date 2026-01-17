@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-class HandoneArWidget extends StatelessWidget {
-  const HandoneArWidget({super.key});
+class HandoneMediaPipeWidget extends StatelessWidget {
+  const HandoneMediaPipeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

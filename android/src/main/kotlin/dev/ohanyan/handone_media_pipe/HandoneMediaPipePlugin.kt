@@ -1,7 +1,6 @@
-package dev.ohanyan.handone.ar.handone_ar
+package dev.ohanyan.handone_media_pipe
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -12,8 +11,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.platform.PlatformViewRegistry
 
-/** HandoneArPlugin */
-class HandoneArPlugin :
+/** HandoneMediaPipePlugin */
+class HandoneMediaPipePlugin :
     FlutterPlugin,
     MethodCallHandler,
     ActivityAware {
@@ -26,7 +25,7 @@ class HandoneArPlugin :
     private var cameraFactory: CameraPlatformViewFactory? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "handone_ar")
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "handone_media_pipe")
         channel.setMethodCallHandler(this)
 
         // Register platform view factory for camera preview

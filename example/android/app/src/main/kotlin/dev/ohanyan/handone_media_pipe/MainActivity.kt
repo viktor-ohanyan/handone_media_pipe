@@ -1,4 +1,4 @@
-package dev.ohanyan.handone.ar.handone_ar_example
+package dev.ohanyan.handone_media_pipe_example
 
 import io.flutter.embedding.android.FlutterActivity
 

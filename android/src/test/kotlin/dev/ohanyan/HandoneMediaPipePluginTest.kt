@@ -1,4 +1,4 @@
-package dev.ohanyan.handone.ar.handone_ar
+package dev.ohanyan.handone_media_pipe
 
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -13,10 +13,10 @@ import kotlin.test.Test
  * you can run them directly from IDEs that support JUnit such as Android Studio.
  */
 
-internal class HandoneArPluginTest {
+internal class HandoneMediaPipePluginTest {
     @Test
     fun onMethodCall_getPlatformVersion_returnsExpectedValue() {
-        val plugin = HandoneArPlugin()
+        val plugin = HandoneMediaPipePlugin()
 
         val call = MethodCall("getPlatformVersion", null)
         val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)

@@ -1,13 +1,13 @@
 import Flutter
 import UIKit
 
-public class HandoneArPlugin: NSObject, FlutterPlugin {
+public class HandoneMediaPipePlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(
-            name: "handone_ar",
+            name: "handone_media_pipe",
             binaryMessenger: registrar.messenger()
         )
-        let instance = HandoneArPlugin()
+        let instance = HandoneMediaPipePlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
 
         let factory = CameraPlatformViewFactory(messenger: registrar.messenger())

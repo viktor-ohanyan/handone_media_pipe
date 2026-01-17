@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.ohanyan.handone.ar.handone_ar_example"
+    namespace = "dev.ohanyan.handone_media_pipe_example"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "dev.ohanyan.handone.ar.handone_ar_example"
+        applicationId = "dev.ohanyan.handone_media_pipe_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

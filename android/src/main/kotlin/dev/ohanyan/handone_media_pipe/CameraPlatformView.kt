@@ -1,4 +1,4 @@
-package dev.ohanyan.handone.ar.handone_ar
+package dev.ohanyan.handone_media_pipe
 
 import android.app.Activity
 import android.content.Context

@@ -3,7 +3,7 @@ import UIKit
 import XCTest
 
 
-@testable import handone_ar
+@testable import handone_media_pipe
 
 // This demonstrates a simple unit test of the Swift portion of this plugin's implementation.
 //
@@ -12,7 +12,7 @@ import XCTest
 class RunnerTests: XCTestCase {
 
   func testGetPlatformVersion() {
-    let plugin = HandoneArPlugin()
+    let plugin = HandoneMediaPipePlugin()
 
     let call = FlutterMethodCall(methodName: "getPlatformVersion", arguments: [])
 

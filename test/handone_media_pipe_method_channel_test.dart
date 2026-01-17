@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:handone_ar/handone_ar_method_channel.dart';
+import 'package:handone_media_pipe/handone_media_pipe_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelHandoneAr platform = MethodChannelHandoneAr();
-  const MethodChannel channel = MethodChannel('handone_ar');
+  MethodChannelHandoneMediaPipe platform = MethodChannelHandoneMediaPipe();
+  const MethodChannel channel = MethodChannel('handone_media_pipe');
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger

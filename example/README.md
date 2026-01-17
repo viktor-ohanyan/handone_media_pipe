@@ -1,6 +1,6 @@
-# handone_ar_example
+# handone_media_pipe_example
 
-Demonstrates how to use the handone_ar plugin.
+Demonstrates how to use the handone_media_pipe plugin.
 
 ## Getting Started
 

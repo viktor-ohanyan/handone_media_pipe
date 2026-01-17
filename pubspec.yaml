@@ -1,5 +1,5 @@
-name: handone_ar
-description: "HandOne AR"
+name: handone_media_pipe
+description: "HandOne MediaPipe"
 version: 0.0.1
 homepage:
 
@@ -35,10 +35,10 @@ flutter:
   plugin:
     platforms:
       android:
-        package: dev.ohanyan.handone.ar.handone_ar
-        pluginClass: HandoneArPlugin
+        package: dev.ohanyan.handone_media_pipe
+        pluginClass: HandoneMediaPipePlugin
       ios:
-        pluginClass: HandoneArPlugin
+        pluginClass: HandoneMediaPipePlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

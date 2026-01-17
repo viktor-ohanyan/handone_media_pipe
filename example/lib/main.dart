@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:handone_ar/handone_ar.dart';
-import 'package:handone_ar/handone_ar_widget.dart';
+import 'package:handone_media_pipe/handone_media_pipe.dart';
+import 'package:handone_media_pipe/handone_media_pipe_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  final _handoneArPlugin = HandoneAr();
+  final _handoneMediaPipePlugin = HandoneMediaPipe();
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _handoneArPlugin.getPlatformVersion() ??
+          await _handoneMediaPipePlugin.getPlatformVersion() ??
           'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Stack(
         children: [
-          HandoneArWidget(),
+          HandoneMediaPipeWidget(),
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
