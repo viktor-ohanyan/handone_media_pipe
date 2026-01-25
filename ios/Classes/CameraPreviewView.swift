@@ -320,7 +320,7 @@ class CameraPreviewView: UIView {
     private func updateInformationLayerLayout() {
         let horizontalPadding: CGFloat = 16
         let verticalPadding: CGFloat = 8
-        let labelY: CGFloat = 150
+        let labelY: CGFloat = 166
 
         // Background layer: horizontal margin 16 on each side
         let backgroundWidth: CGFloat = bounds.width - 32
