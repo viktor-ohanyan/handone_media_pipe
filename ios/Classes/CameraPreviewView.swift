@@ -320,11 +320,11 @@ class CameraPreviewView: UIView {
     private func updateInformationLayerLayout() {
         let horizontalPadding: CGFloat = 16
         let verticalPadding: CGFloat = 8
-        let labelY: CGFloat = 100
+        let labelY: CGFloat = 150
 
         // Background layer: horizontal margin 16 on each side
         let backgroundWidth: CGFloat = bounds.width - 32
-        let backgroundX: CGFloat = 13
+        let backgroundX: CGFloat = 16
 
         // Text area width inside the background
         let textWidth: CGFloat = backgroundWidth - (horizontalPadding * 2)
@@ -758,6 +758,18 @@ extension CameraPreviewView: HandLandmarkerLiveStreamDelegate {
                     self.supinationMaxAngle = nil
                     self.pronationAngle = angle
                     self.pronationMaxAngle = max(self.pronationMaxAngle ?? 0, angle)
+                }
+                
+                // Send JSON data to Flutter
+                var data: [String: Any] = [:]
+                if let supination = self.supinationAngle {
+                    data["supination"] = supination
+                }
+                if let pronation = self.pronationAngle {
+                    data["pronation"] = pronation
+                }
+                if !data.isEmpty {
+                    HandoneMediaPipePlugin.sendData(data)
                 }
             }
 
