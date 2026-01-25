@@ -695,47 +695,33 @@ extension CameraPreviewView: HandLandmarkerLiveStreamDelegate {
                     let angle = abs(180 - Int(calculateXYAngle(a: pinky, b: wrist, c: elbow).rounded()))
                     let xApogee = wrist.x - (wrist.y - pinky.y) * ((wrist.x - elbow.x) / (wrist.y - elbow.y))
                     if (angle <= 90) {
+                        var data: [String: Any] = [:]
                         if pinky.x < xApogee && handedness == "Left" || pinky.x > xApogee && handedness == "Right" {
                             self.flexionAngle = angle;
                             self.flexionMaxAngle = max(self.flexionMaxAngle ?? 0, angle)
                             self.extensionAngle = nil;
-                            self.extensionMaxAngle = nil
+                            if let extensionMaxAngle = self.extensionMaxAngle {
+                                if extensionMaxAngle > 9 {
+                                    data["extension"] = extensionMaxAngle
+                                }
+                                self.extensionMaxAngle = nil
+                            }
                         } else {
                             self.flexionAngle = nil;
-                            self.flexionMaxAngle = nil
+                            if let flexionMaxAngle = self.flexionMaxAngle {
+                                if flexionMaxAngle > 9 {
+                                    data["flexion"] = flexionMaxAngle
+                                }
+                                self.flexionMaxAngle = nil
+                            }
                             self.extensionAngle = angle;
                             self.extensionMaxAngle = max(self.extensionMaxAngle ?? 0, angle)
                         }
+                        if !data.isEmpty {
+                            HandoneMediaPipePlugin.sendData(data)
+                        }
                     }
                 }
-                // let handedness = result.handedness.first?.first?.categoryName ?? "Right"
-                //
-                // let wristZeroY = NormalizedLandmark(
-                //     x: wrist.x,
-                //     y: 0,
-                //     z: wrist.z,
-                //     visibility:
-                //     wrist.visibility,
-                //     presence: wrist.presence
-                // )
-                // let middleMcp = firstHand[9]
-                // let wrist = firstHand[0]
-                // // Calculating angle between middle finger MCP, wrist, and elbow
-                // let angle = Int(calculateXYAngle(a: middleMcp, b: wrist, c: wristZeroY).rounded())
-                // print(handedness);
-                // if (angle <= 90) {
-                //     if (middleMcp.x < wrist.x && handedness == "Left") || (middleMcp.x > wrist.x && handedness == "Right") {
-                //         self.flexionAngle = angle;
-                //         self.flexionMaxAngle = max(self.flexionMaxAngle ?? 0, angle)
-                //         self.extensionAngle = nil;
-                //         self.extensionMaxAngle = nil
-                //     } else {
-                //         self.flexionAngle = nil;
-                //         self.flexionMaxAngle = nil
-                //         self.extensionAngle = angle;
-                //         self.extensionMaxAngle = max(self.extensionMaxAngle ?? 0, angle)
-                //     }
-                // }
             } else if exerciseType == .forearmSupinationAndPronation {
                 let pinkyMcp = firstHand[17]
                 let thumbMcp = firstHand[2]
@@ -748,25 +734,27 @@ extension CameraPreviewView: HandLandmarkerLiveStreamDelegate {
                     presence: thumbMcp.presence
                 )
                 let angle = abs(90 - Int(calculate3DAngle(a: pinkyMcp, b: thumbMcp, c: thumbMcpZeroZ).rounded()))
+                var data: [String: Any] = [:]
                 if thumbMcp.z > pinkyMcp.z {
                     self.supinationAngle = angle
                     self.supinationMaxAngle = max(self.supinationMaxAngle ?? 0, angle)
                     self.pronationAngle = nil
-                    self.pronationMaxAngle = nil
+                    if let pronationMaxAngle = self.pronationMaxAngle {
+                        if pronationMaxAngle > 9 {
+                            data["pronation"] = pronationMaxAngle
+                        }
+                        self.pronationMaxAngle = nil
+                    }
                 } else {
                     self.supinationAngle = nil
-                    self.supinationMaxAngle = nil
+                    if let supinationMaxAngle = self.supinationMaxAngle {
+                        if supinationMaxAngle > 9 {
+                            data["supination"] = supinationMaxAngle
+                        }
+                        self.supinationMaxAngle = nil
+                    }
                     self.pronationAngle = angle
                     self.pronationMaxAngle = max(self.pronationMaxAngle ?? 0, angle)
-                }
-                
-                // Send JSON data to Flutter
-                var data: [String: Any] = [:]
-                if let supination = self.supinationAngle {
-                    data["supination"] = supination
-                }
-                if let pronation = self.pronationAngle {
-                    data["pronation"] = pronation
                 }
                 if !data.isEmpty {
                     HandoneMediaPipePlugin.sendData(data)
