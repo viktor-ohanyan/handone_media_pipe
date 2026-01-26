@@ -662,42 +662,77 @@ extension CameraPreviewView: HandLandmarkerLiveStreamDelegate {
                 self.pinkyTotalAngle = pinkyAngle
 
                 var data: [String: Any] = [:]
-                if let indexMax = indexFingerTotalMaxAngle, let middleMax = middleFingerTotalMaxAngle,
-                   let ringMax = ringFingerTotalMaxAngle, let pinkyMax = pinkyTotalMaxAngle,
-                   indexAngle < indexMax - 60 && middleAngle < middleMax - 60 &&
-                       ringAngle < ringMax - 60 && pinkyAngle < pinkyMax - 60 {
-                    data["index_extension"] = indexMax
-                    self.indexFingerTotalMaxAngle = nil
-                    data["middle_extension"] = middleMax
-                    self.middleFingerTotalMaxAngle = nil
-                    data["ring_extension"] = ringMax
-                    self.ringFingerTotalMaxAngle = nil
-                    data["pinky_extension"] = pinkyMax
-                    self.pinkyTotalMaxAngle = nil
+                if indexAngle < 420 && middleAngle < 420 && ringAngle < 420 && pinkyAngle < 420 {
+                    self.indexFingerTotalMinAngle = min(self.indexFingerTotalMinAngle ?? 1000, indexAngle)
+                    self.middleFingerTotalMinAngle = min(self.middleFingerTotalMinAngle ?? 1000, middleAngle)
+                    self.ringFingerTotalMinAngle = min(self.ringFingerTotalMinAngle ?? 1000, ringAngle)
+                    self.pinkyTotalMinAngle = min(self.pinkyTotalMinAngle ?? 1000, pinkyAngle)
+
+                    if let indexMax = indexFingerTotalMaxAngle, let middleMax = middleFingerTotalMaxAngle,
+                       let ringMax = ringFingerTotalMaxAngle, let pinkyMax = pinkyTotalMaxAngle {
+                        data["index_extension"] = indexMax
+                        self.indexFingerTotalMaxAngle = nil
+                        data["middle_extension"] = middleMax
+                        self.middleFingerTotalMaxAngle = nil
+                        data["ring_extension"] = ringMax
+                        self.ringFingerTotalMaxAngle = nil
+                        data["pinky_extension"] = pinkyMax
+                        self.pinkyTotalMaxAngle = nil
+                    }
                 } else {
                     self.indexFingerTotalMaxAngle = max(self.indexFingerTotalMaxAngle ?? 0, indexAngle)
                     self.middleFingerTotalMaxAngle = max(self.middleFingerTotalMaxAngle ?? 0, middleAngle)
                     self.ringFingerTotalMaxAngle = max(self.ringFingerTotalMaxAngle ?? 0, ringAngle)
                     self.pinkyTotalMaxAngle = max(self.pinkyTotalMaxAngle ?? 0, pinkyAngle)
+
+                    if let indexMin = indexFingerTotalMinAngle, let middleMin = middleFingerTotalMinAngle,
+                       let ringMin = ringFingerTotalMinAngle, let pinkyMin = pinkyTotalMinAngle {
+                        data["index_flexion"] = indexMin
+                        self.indexFingerTotalMinAngle = nil
+                        data["middle_flexion"] = middleMin
+                        self.middleFingerTotalMinAngle = nil
+                        data["ring_flexion"] = ringMin
+                        self.ringFingerTotalMinAngle = nil
+                        data["pinky_flexion"] = pinkyMin
+                        self.pinkyTotalMinAngle = nil
+                    }
                 }
-                if let indexMin = indexFingerTotalMinAngle, let middleMin = middleFingerTotalMinAngle,
-                   let ringMin = ringFingerTotalMinAngle, let pinkyMin = pinkyTotalMinAngle,
-                   indexAngle > indexMin + 60 && middleAngle > middleMin + 60 &&
-                       ringAngle > ringMin + 60 && pinkyAngle > pinkyMin + 60 {
-                    data["index_flexion"] = indexMin
-                    self.indexFingerTotalMinAngle = nil
-                    data["middle_flexion"] = middleMin
-                    self.middleFingerTotalMinAngle = nil
-                    data["ring_flexion"] = ringMin
-                    self.ringFingerTotalMinAngle = nil
-                    data["pinky_flexion"] = pinkyMin
-                    self.pinkyTotalMinAngle = nil
-                } else {
-                    self.indexFingerTotalMinAngle = min(self.indexFingerTotalMinAngle ?? 1000, indexAngle)
-                    self.middleFingerTotalMinAngle = min(self.middleFingerTotalMinAngle ?? 1000, middleAngle)
-                    self.ringFingerTotalMinAngle = min(self.ringFingerTotalMinAngle ?? 1000, ringAngle)
-                    self.pinkyTotalMinAngle = min(self.pinkyTotalMinAngle ?? 1000, pinkyAngle)
-                }
+                // if let indexMax = indexFingerTotalMaxAngle, let middleMax = middleFingerTotalMaxAngle,
+                //    let ringMax = ringFingerTotalMaxAngle, let pinkyMax = pinkyTotalMaxAngle,
+                //    indexAngle < indexMax - 60 && middleAngle < middleMax - 60 &&
+                //        ringAngle < ringMax - 60 && pinkyAngle < pinkyMax - 60 {
+                //     data["index_extension"] = indexMax
+                //     self.indexFingerTotalMaxAngle = nil
+                //     data["middle_extension"] = middleMax
+                //     self.middleFingerTotalMaxAngle = nil
+                //     data["ring_extension"] = ringMax
+                //     self.ringFingerTotalMaxAngle = nil
+                //     data["pinky_extension"] = pinkyMax
+                //     self.pinkyTotalMaxAngle = nil
+                // } else {
+                //     self.indexFingerTotalMaxAngle = max(self.indexFingerTotalMaxAngle ?? 0, indexAngle)
+                //     self.middleFingerTotalMaxAngle = max(self.middleFingerTotalMaxAngle ?? 0, middleAngle)
+                //     self.ringFingerTotalMaxAngle = max(self.ringFingerTotalMaxAngle ?? 0, ringAngle)
+                //     self.pinkyTotalMaxAngle = max(self.pinkyTotalMaxAngle ?? 0, pinkyAngle)
+                // }
+                // if let indexMin = indexFingerTotalMinAngle, let middleMin = middleFingerTotalMinAngle,
+                //    let ringMin = ringFingerTotalMinAngle, let pinkyMin = pinkyTotalMinAngle,
+                //    indexAngle > indexMin + 60 && middleAngle > middleMin + 60 &&
+                //        ringAngle > ringMin + 60 && pinkyAngle > pinkyMin + 60 {
+                //     data["index_flexion"] = indexMin
+                //     self.indexFingerTotalMinAngle = nil
+                //     data["middle_flexion"] = middleMin
+                //     self.middleFingerTotalMinAngle = nil
+                //     data["ring_flexion"] = ringMin
+                //     self.ringFingerTotalMinAngle = nil
+                //     data["pinky_flexion"] = pinkyMin
+                //     self.pinkyTotalMinAngle = nil
+                // } else {
+                //     self.indexFingerTotalMinAngle = min(self.indexFingerTotalMinAngle ?? 1000, indexAngle)
+                //     self.middleFingerTotalMinAngle = min(self.middleFingerTotalMinAngle ?? 1000, middleAngle)
+                //     self.ringFingerTotalMinAngle = min(self.ringFingerTotalMinAngle ?? 1000, ringAngle)
+                //     self.pinkyTotalMinAngle = min(self.pinkyTotalMinAngle ?? 1000, pinkyAngle)
+                // }
 
                 if !data.isEmpty {
                     HandoneMediaPipePlugin.sendData(data)
