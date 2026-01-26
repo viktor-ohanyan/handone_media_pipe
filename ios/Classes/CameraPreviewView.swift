@@ -648,26 +648,60 @@ extension CameraPreviewView: HandLandmarkerLiveStreamDelegate {
                 // Index finger: 5, 6, 7, 8
                 let indexAngle = Int(calculateFingerTotalAngle(wrist: wrist, mcp: firstHand[5], pip: firstHand[6], dip: firstHand[7], tip: firstHand[8]).rounded())
                 self.indexFingerTotalAngle = indexAngle
-                self.indexFingerTotalMaxAngle = max(self.indexFingerTotalMaxAngle ?? 0, indexAngle)
-                self.indexFingerTotalMinAngle = min(self.indexFingerTotalMinAngle ?? 1000, indexAngle)
 
                 // Middle finger: 9, 10, 11, 12
                 let middleAngle = Int(calculateFingerTotalAngle(wrist: wrist, mcp: firstHand[9], pip: firstHand[10], dip: firstHand[11], tip: firstHand[12]).rounded())
                 self.middleFingerTotalAngle = middleAngle
-                self.middleFingerTotalMaxAngle = max(self.middleFingerTotalMaxAngle ?? 0, middleAngle)
-                self.middleFingerTotalMinAngle = min(self.middleFingerTotalMinAngle ?? 1000, middleAngle)
 
                 // Ring finger: 13, 14, 15, 16
                 let ringAngle = Int(calculateFingerTotalAngle(wrist: wrist, mcp: firstHand[13], pip: firstHand[14], dip: firstHand[15], tip: firstHand[16]).rounded())
                 self.ringFingerTotalAngle = ringAngle
-                self.ringFingerTotalMaxAngle = max(self.ringFingerTotalMaxAngle ?? 0, ringAngle)
-                self.ringFingerTotalMinAngle = min(self.ringFingerTotalMinAngle ?? 1000, ringAngle)
 
                 // Pinky: 17, 18, 19, 20
                 let pinkyAngle = Int(calculateFingerTotalAngle(wrist: wrist, mcp: firstHand[17], pip: firstHand[18], dip: firstHand[19], tip: firstHand[20]).rounded())
                 self.pinkyTotalAngle = pinkyAngle
-                self.pinkyTotalMaxAngle = max(self.pinkyTotalMaxAngle ?? 0, pinkyAngle)
-                self.pinkyTotalMinAngle = min(self.pinkyTotalMinAngle ?? 1000, pinkyAngle)
+
+                var data: [String: Any] = [:]
+                if let indexMax = indexFingerTotalMaxAngle, let middleMax = middleFingerTotalMaxAngle,
+                   let ringMax = ringFingerTotalMaxAngle, let pinkyMax = pinkyTotalMaxAngle,
+                   indexAngle < indexMax - 60 && middleAngle < middleMax - 60 &&
+                       ringAngle < ringMax - 60 && pinkyAngle < pinkyMax - 60 {
+                    data["index_extension"] = indexMax
+                    self.indexFingerTotalMaxAngle = nil
+                    data["middle_extension"] = middleMax
+                    self.middleFingerTotalMaxAngle = nil
+                    data["ring_extension"] = ringMax
+                    self.ringFingerTotalMaxAngle = nil
+                    data["pinky_extension"] = pinkyMax
+                    self.pinkyTotalMaxAngle = nil
+                } else {
+                    self.indexFingerTotalMaxAngle = max(self.indexFingerTotalMaxAngle ?? 0, indexAngle)
+                    self.middleFingerTotalMaxAngle = max(self.middleFingerTotalMaxAngle ?? 0, middleAngle)
+                    self.ringFingerTotalMaxAngle = max(self.ringFingerTotalMaxAngle ?? 0, ringAngle)
+                    self.pinkyTotalMaxAngle = max(self.pinkyTotalMaxAngle ?? 0, pinkyAngle)
+                }
+                if let indexMin = indexFingerTotalMinAngle, let middleMin = middleFingerTotalMinAngle,
+                   let ringMin = ringFingerTotalMinAngle, let pinkyMin = pinkyTotalMinAngle,
+                   indexAngle > indexMin + 60 && middleAngle > middleMin + 60 &&
+                       ringAngle > ringMin + 60 && pinkyAngle > pinkyMin + 60 {
+                    data["index_flexion"] = indexMin
+                    self.indexFingerTotalMinAngle = nil
+                    data["middle_flexion"] = middleMin
+                    self.middleFingerTotalMinAngle = nil
+                    data["ring_flexion"] = ringMin
+                    self.ringFingerTotalMinAngle = nil
+                    data["pinky_flexion"] = pinkyMin
+                    self.pinkyTotalMinAngle = nil
+                } else {
+                    self.indexFingerTotalMinAngle = min(self.indexFingerTotalMinAngle ?? 1000, indexAngle)
+                    self.middleFingerTotalMinAngle = min(self.middleFingerTotalMinAngle ?? 1000, middleAngle)
+                    self.ringFingerTotalMinAngle = min(self.ringFingerTotalMinAngle ?? 1000, ringAngle)
+                    self.pinkyTotalMinAngle = min(self.pinkyTotalMinAngle ?? 1000, pinkyAngle)
+                }
+
+                if !data.isEmpty {
+                    HandoneMediaPipePlugin.sendData(data)
+                }
             } else if exerciseType == .wristExtensionAndFlexion {
                 // Get elbow from pose landmarks
                 var elbow: NormalizedLandmark? = nil
