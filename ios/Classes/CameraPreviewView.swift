@@ -214,9 +214,9 @@ class CameraPreviewView: UIView {
         options.baseOptions.modelAssetPath = modelPath
         options.runningMode = .liveStream
         options.numHands = 2
-        options.minHandDetectionConfidence = 0.5
-        options.minHandPresenceConfidence = 0.5
-        options.minTrackingConfidence = 0.5
+        options.minHandDetectionConfidence = 0.7
+        options.minHandPresenceConfidence = 0.7
+        options.minTrackingConfidence = 0.7
         options.handLandmarkerLiveStreamDelegate = self
     }
 
@@ -224,9 +224,9 @@ class CameraPreviewView: UIView {
         options.baseOptions.modelAssetPath = modelPath
         options.runningMode = .liveStream
         options.numPoses = 1
-        options.minPoseDetectionConfidence = 0.5
-        options.minPosePresenceConfidence = 0.5
-        options.minTrackingConfidence = 0.5
+        options.minPoseDetectionConfidence = 0.7
+        options.minPosePresenceConfidence = 0.7
+        options.minTrackingConfidence = 0.7
         options.poseLandmarkerLiveStreamDelegate = self
     }
 
