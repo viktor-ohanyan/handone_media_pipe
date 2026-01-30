@@ -224,9 +224,9 @@ class CameraPreviewView: UIView {
         options.baseOptions.modelAssetPath = modelPath
         options.runningMode = .liveStream
         options.numPoses = 1
-        options.minPoseDetectionConfidence = 0.7
-        options.minPosePresenceConfidence = 0.7
-        options.minTrackingConfidence = 0.7
+        options.minPoseDetectionConfidence = 0.6
+        options.minPosePresenceConfidence = 0.6
+        options.minTrackingConfidence = 0.6
         options.poseLandmarkerLiveStreamDelegate = self
     }
 
