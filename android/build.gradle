@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.11.1")
+        classpath("com.android.tools.build:gradle:9.0.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
@@ -21,8 +21,8 @@ allprojects {
     }
 }
 
+// AGP 9 enables built-in Kotlin, so the kotlin-android plugin is no longer applied.
 apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
 
 android {
     namespace = "dev.ohanyan.handone_media_pipe"
@@ -34,14 +34,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
-    }
-
-    sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
-        test.java.srcDirs += "src/test/kotlin"
-    }
+    // With built-in Kotlin, src/main/kotlin and src/test/kotlin are default
+    // Kotlin source directories, so no explicit sourceSets configuration is needed.
 
     defaultConfig {
         minSdk = 24
@@ -63,6 +57,13 @@ android {
                 showStandardStreams = true
             }
         }
+    }
+}
+
+// With built-in Kotlin, Kotlin compiler options move to the top-level kotlin { } block.
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
