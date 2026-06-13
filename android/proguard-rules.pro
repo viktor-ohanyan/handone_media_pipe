@@ -1,6 +1,7 @@
 # Consumer rules for apps that use handone_media_pipe with MediaPipe.
-# MediaPipe requires original class/field names (e.g. platform_); do not obfuscate.
--dontobfuscate
+# MediaPipe requires original class/field names (e.g. platform_), so the plugin and
+# MediaPipe classes are kept with their original names via the -keep rules below.
+# A global -dontobfuscate is not allowed in a consumer configuration file (AGP 9+).
 
 -keep class dev.ohanyan.handone_media_pipe.** { *; }
 
